@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flight Price Prediction</title>
+</head>
+<body>
+    <h1>Flight Price Prediction</h1>
+
+    <!-- Form for categorical columns with dropdowns -->
+    <form action="/" method="POST">
+        <h2>Categorical Columns</h2>
+        {% for col in df %}
+            {% if col in ordinal_cols %}
+                <label for="{{ col }}">{{ col }}</label>
+                <select id="{{ col }}" name="{{ col }}">
+                    {% for value in unique_values[col] %}
+                        <option value="{{ value }}">{{ value }}</option>
+                    {% endfor %}
+                </select>
+                <br><br>
+            {% endif %}
+        {% endfor %}
+
+        <!-- Text input for 'flight' -->
+        <label for="flight">Flight Number</label>
+        <input type="text" id="flight" name="flight" required>
+        <br><br>
+
+        <!-- Text input for 'duration' -->
+        <label for="duration">Flight Duration (hours)</label>
+        <input type="text" id="duration" name="duration" required>
+        <br><br>
+
+        <!-- Text input for 'days_left' -->
+        <label for="days_left">Days Left Until Departure</label>
+        <input type="text" id="days_left" name="days_left" required>
+        <br><br>
+
+        <button type="submit">Predict Price</button>
+    </form>
+
+    <!-- Display prediction result if available -->
+    {% if prediction %}
+        <h2>{{ prediction }}</h2>
+    {% endif %}
+
+</body>
+</html>
